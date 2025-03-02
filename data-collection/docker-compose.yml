@@ -1,0 +1,14 @@
+services:
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf
+    restart: unless-stopped
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    environment:
+      - HOSTNAME=${$HOSTNAME:-machine1}
+    
+networks:
+  default:
+    external: true
+    name: traefik-net

@@ -6,7 +6,7 @@ services:
     volumes:
       - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
     environment:
-      - HOSTNAME=${$HOSTNAME:-machine1}
+      - HOSTNAME=${HOSTNAME:-machine1}
     
 networks:
   default:

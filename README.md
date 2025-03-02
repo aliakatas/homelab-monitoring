@@ -25,3 +25,27 @@ Please remove if not needed.
 For data collection, you can spin up the container using the relevant docker-compose file. 
 It does require you to edit the telegraf configuration file [`telegraf.conf`](./data-collection/telegraf.conf) to your specific needs.
 Mind that the machine tag needs to be unique for each machine to get meaningful data.
+
+## Autostart
+To configure the service to start on reboot, execute the following:
+
+### InfluxDB+Grafana
+```sh
+chmod +x configure-service.sh
+./configure-service.sh ./visualisation/homelab-monitoring-visualise.service "WorkingDirectory" $(pwd)/visualisation
+./configure-service.sh ./visualisation/homelab-monitoring-visualise.service "EnvironmentFile" $(pwd)/visualisation/.env
+sudo ln -sf "$(pwd)/visualisation/homelab-monitoring-visualise.service" /etc/systemd/system/homelab-monitoring-visualise.service
+sudo systemctl daemon-reload
+sudo systemctl start homelab-monitoring-visualise.service
+sudo systemctl enable homelab-monitoring-visualise.service
+```
+### Telegraf
+```sh
+chmod +x configure-service.sh
+./configure-service.sh ./data-collection/homelab-monitoring-data-collection.service "WorkingDirectory" $(pwd)/data-collection
+./configure-service.sh ./data-collection/homelab-monitoring-data-collection.service "EnvironmentFile" $(pwd)/data-collection/.env
+sudo ln -sf "$(pwd)/visualisation/homelab-monitoring-data-collection.service" /etc/systemd/system/homelab-monitoring-data-collection.service
+sudo systemctl daemon-reload
+sudo systemctl start homelab-monitoring-data-collection.service
+sudo systemctl enable homelab-monitoring-data-collection.service
+```

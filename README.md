@@ -44,7 +44,7 @@ sudo systemctl enable homelab-monitoring-visualise.service
 chmod +x configure-service.sh
 ./configure-service.sh ./data-collection/homelab-monitoring-data-collection.service "WorkingDirectory" $(pwd)/data-collection
 ./configure-service.sh ./data-collection/homelab-monitoring-data-collection.service "EnvironmentFile" $(pwd)/data-collection/.env
-sudo ln -sf "$(pwd)/visualisation/homelab-monitoring-data-collection.service" /etc/systemd/system/homelab-monitoring-data-collection.service
+sudo ln -sf "$(pwd)/data-collection/homelab-monitoring-data-collection.service" /etc/systemd/system/homelab-monitoring-data-collection.service
 sudo systemctl daemon-reload
 sudo systemctl start homelab-monitoring-data-collection.service
 sudo systemctl enable homelab-monitoring-data-collection.service
